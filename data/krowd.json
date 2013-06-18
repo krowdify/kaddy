@@ -19,7 +19,7 @@
     "description" : "These headers will get sent with every request.  Usually an Oauth Token but could also be a used for basic auth as well. ",
     "button" : "Get Token!",
     "HTTPMethod" : "GET",
-    "AuthURI" : "http://krowd:8443/user/oauth/auth",
+    "AuthURI" : "http://auth.krowd.io/user/oauth/auth",
     "fields" : [
       {
         "Name" : "token",
@@ -40,7 +40,7 @@
       {
         "Name" : "redirect_uri",
         "Required" : "Y",
-        "Default" : "http://krowd:8443/user/oauth/redirect",
+        "Default" : "http://auth.krowd.io/user/oauth/redirect",
         "Type" : "string",
         "Description" : "The redirect URL for your application."
       },
@@ -53,7 +53,7 @@
       }
     ]
   },
-  "baseurl" : "http://krowd:8088",
+  "baseurl" : "http://api.krowd.io",
   "endpoints" : [
     {
       "name" : "Users",
