@@ -5,6 +5,8 @@ Krowd Kaddy is an experimental JSON based API explorer. It is currently pretty a
 we do use it every day.  Feel free to create issues and improve the code so we can make this 
 project successful.
 
+![screenshot](https://raw.github.com/krowd/kaddy/master/img/screenshot1.png)
+
 ## Working with Kaddy
 
 This is just HTML and Javascript so all you need is a webserver to load the code on so you can make 
