@@ -1,0 +1,725 @@
+{
+  "globals" : [
+    {
+      "Name" : "userid",
+      "Required" : "Y",
+      "Default" : "",
+      "Type" : "string",
+      "Description" : "A valid user id."
+    },
+    {
+      "Name" : "contentid",
+      "Required" : "Y",
+      "Default" : "",
+      "Type" : "string",
+      "Description" : "The id to a piece of content."
+    }
+  ],
+  "authentication" : {
+    "description" : "These headers will get sent with every request.  Usually an Oauth Token but could also be a used for basic auth as well. ",
+    "button" : "Get Token!",
+    "HTTPMethod" : "GET",
+    "AuthURI" : "http://krowd:8443/user/oauth/auth",
+    "fields" : [
+      {
+        "Name" : "token",
+        "Default" : null,
+        "Type" : "header",
+        "Description" : "The oauth2 token.",
+        "Header" : "Authorization"
+      }
+    ],
+    "parameters" : [
+      {
+        "Name" : "client_id",
+        "Required" : "Y",
+        "Default" : "DemoApp",
+        "Type" : "string",
+        "Description" : "The application id."
+      },
+      {
+        "Name" : "redirect_uri",
+        "Required" : "Y",
+        "Default" : "http://krowd:8443/user/oauth/redirect",
+        "Type" : "string",
+        "Description" : "The redirect URL for your application."
+      },
+      {
+        "Name" : "response_type",
+        "Required" : "Y",
+        "Default" : "code",
+        "Type" : "string",
+        "Description" : "The grant type for getting an authorization code."
+      }
+    ]
+  },
+  "baseurl" : "http://krowd:8088",
+  "endpoints" : [
+    {
+      "name" : "Users",
+      "description" : "<p>These are user endpoints, with them you will be able to get user lists, relationships, and information about given .</p> <p>All requests require a valid user id.</p>",
+      "methods" : [
+        {
+          "MethodName" : "List Users",
+          "Synopsis" : "This will get a listing of users.",
+          "HTTPMethod" : "GET",
+          "URI" : "/user/list",
+          "RequiresOAuth" : "Y",
+          "parameters" : [
+                      {
+              "Name" : "limit",
+              "Required" : "N",
+              "Default" : "10",
+              "Type" : "string",
+              "Description" : "The number of comments to return"
+            },
+            {
+              "Name" : "page",
+              "Required" : "N",
+              "Default" : "1",
+              "Type" : "string",
+              "Description" : "The page of the comments"
+            },
+            {
+              "Name" : "startid",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "The id where you want to anchor paging"
+            },
+            {
+              "Name" : "direction",
+              "Required" : "N",
+              "Default" : "None",
+              "Type" : "enumerated",
+              "Description" : "Do you want data before or after the startid?",
+              "enumerated" : [
+                "None",
+                "before",
+                "after"
+              ]
+            }
+
+          ]
+        },
+        {
+          "MethodName" : "Profile",
+          "Synopsis" : "This will get information about this user.",
+          "HTTPMethod" : "GET",
+          "URI" : "/user/:userid",
+          "RequiresOAuth" : "Y",
+          "parameters" : [
+            {
+              "Name" : "userid",
+              "Required" : "Y",
+              "Default" : "50a84b877a650921c2faeb77",
+              "Type" : "ObjectId",
+              "Description" : "The user id"
+            }
+          ]
+        },
+        {
+          "MethodName" : "Profile Image",
+          "Synopsis" : "This will get the users current profile image.",
+          "HTTPMethod" : "IMAGE",
+          "URI" : "/user/:client_id/:userid/profile_image",
+          "RequiresOAuth" : "Y",
+          "parameters" : [
+            {
+              "Name" : "client_id",
+              "Required" : "Y",
+              "Default" : "DemoApp",
+              "Type" : "ObjectId",
+              "Description" : "The user id"
+            },
+            {
+              "Name" : "userid",
+              "Required" : "Y",
+              "Default" : "50a84b877a650921c2faeb77",
+              "Type" : "ObjectId",
+              "Description" : "The user id"
+            }
+          ]
+        },
+        {
+          "MethodName" : "Friends",
+          "Synopsis" : "This will get users friends.",
+          "HTTPMethod" : "GET",
+          "URI" : "/user/:userid/friends",
+          "RequiresOAuth" : "N",
+          "parameters" : [
+            {
+              "Name" : "userid",
+              "Required" : "Y",
+              "Default" : "50a84b877a650921c2faeb77",
+              "Type" : "ObjectId",
+              "Description" : "The user id"
+            }
+          ]
+        },
+        {
+          "MethodName" : "Followers",
+          "Synopsis" : "This will get who user is Following.",
+          "HTTPMethod" : "GET",
+          "URI" : "/user/:userid/followers",
+          "RequiresOAuth" : "Y",
+          "parameters" : [
+            {
+              "Name" : "userid",
+              "Required" : "Y",
+              "Default" : "50a84b877a650921c2faeb77",
+              "Type" : "ObjectId",
+              "Description" : "The user id"
+            }
+          ]
+        },
+        {
+          "MethodName" : "Following",
+          "Synopsis" : "This will display user followers.",
+          "HTTPMethod" : "GET",
+          "URI" : "/user/:userid/following",
+          "RequiresOAuth" : "N",
+          "parameters" : [
+            {
+              "Name" : "userid",
+              "Required" : "Y",
+              "Default" : "50a84b877a650921c2faeb77",
+              "Type" : "ObjectId",
+              "Description" : "The user id"
+            }
+          ]
+        },
+        {
+          "MethodName" : "Relationships",
+          "Synopsis" : "This will create/manage relationships.",
+          "HTTPMethod" : "POST",
+          "URI" : "/user/:userid/relationship",
+          "RequiresOAuth" : "N",
+          "parameters" : [
+            {
+              "Name" : "userid",
+              "Required" : "Y",
+              "Default" : "50a84b877a650921c2faeb77",
+              "Type" : "ObjectId",
+              "Description" : "The user id"
+            },
+            {
+              "Name" : "action",
+              "Required" : "Y",
+              "Default" : "follow",
+              "Type" : "enumerated",
+              "Description" : "The relationship action.",
+              "enumerated" : [
+                "follow",
+                "unfollow",
+                "block",
+                "unblock",
+                "request",
+                "deny",
+                "friend"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "Likes",
+      "description" : "<p>These endpoints allow you to get, post, or delete user likes on content.</p><p>All endpoints require a valid content id.</p>",
+      "methods" : [
+        {
+          "MethodName" : "Get Likes",
+          "Synopsis" : "Get the likes of some content.",
+          "HTTPMethod" : "GET",
+          "URI" : "/like/:contentid",
+          "RequiresOAuth" : "N",
+          "parameters" : [
+            {
+              "Name" : "contentid",
+              "Required" : "Y",
+              "Default" : "contentid",
+              "Type" : "string",
+              "Description" : "The id of the content."
+            }
+          ]
+        },
+        {
+          "MethodName" : "Delete Like",
+          "Synopsis" : "Delete like of some content.",
+          "HTTPMethod" : "DELETE",
+          "URI" : "/like/:contentid",
+          "RequiresOAuth" : "Y",
+          "parameters" : [
+            {
+              "Name" : "contentid",
+              "Required" : "Y",
+              "Default" : "contentid",
+              "Type" : "string",
+              "Description" : "The id of the content."
+            }
+          ]
+        },
+        {
+          "MethodName" : "Like Content",
+          "Synopsis" : "This is a like/unlike toggle.",
+          "HTTPMethod" : "POST",
+          "URI" : "/like/:contentid",
+          "RequiresOAuth" : "Y",
+          "parameters" : [
+            {
+              "Name" : "contentid",
+              "Required" : "Y",
+              "Default" : "contentid",
+              "Type" : "string",
+              "Description" : "The id of the content."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "Comments",
+      "description" : "<p>These comment endpoints will allow you to get, post, and delete comments.</p><p>All these endpoints will require a valid content id</p>",
+      "methods" : [
+        {
+          "MethodName" : "Get Comments",
+          "Synopsis" : "This method allows a user to retrieve comments",
+          "HTTPMethod" : "GET",
+          "URI" : "/comment/:contentid",
+          "RequiresOAuth" : "Y",
+          "parameters" : [
+            {
+              "Name" : "contentid",
+              "Required" : "Y",
+              "Default" : "contentid",
+              "Type" : "string",
+              "Description" : "The id of the content."
+            },
+            {
+              "Name" : "limit",
+              "Required" : "N",
+              "Default" : "10",
+              "Type" : "string",
+              "Description" : "The number of comments to return"
+            },
+            {
+              "Name" : "page",
+              "Required" : "N",
+              "Default" : "1",
+              "Type" : "string",
+              "Description" : "The page of the comments"
+            },
+            {
+              "Name" : "maxid",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "The max id of displayed"
+            },
+            {
+              "Name" : "paging",
+              "Required" : "N",
+              "Default" : "None",
+              "Type" : "enumerated",
+              "Description" : "The type of content",
+              "enumerated" : [
+                "None",
+                "next",
+                "prev"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName" : "Post Comment",
+          "Synopsis" : "This method allows a user to post comments.",
+          "HTTPMethod" : "POST",
+          "URI" : "/comment/:contentid",
+          "RequiresOAuth" : "Y",
+          "parameters" : [
+            {
+              "Name" : "contentid",
+              "Required" : "Y",
+              "Default" : "contentid",
+              "Type" : "string",
+              "Description" : "The id of the content."
+            },
+            {
+              "Name" : "text",
+              "Required" : "Y",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "Body of the content"
+            }
+          ]
+        },
+        {
+          "MethodName" : "Delete Comment",
+          "Synopsis" : "Delete a comment",
+          "HTTPMethod" : "DELETE",
+          "URI" : "/comment/:commentid",
+          "RequiresOAuth" : "Y",
+          "parameters" : [
+            {
+              "Name" : "commentid",
+              "Required" : "Y",
+              "Default" : "contentid",
+              "Type" : "string",
+              "Description" : "The id of the comment."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "Posts",
+      "description" : "<p>Many types of content can be added to our system and all the fields are optional here.  However we need at least 1 text input field (title, text, usertext) to be sent with your request.</p>\n\n<p><strong>Image handling</strong>\n<br/>Image handling can be done in one of two ways, you can first upload the data via our /add/media api which will return an objectId which you can pass into our endpoint.  Or you can simply provide a valid URL to the content using the image parameter.</p>\n\n<p><strong>Notes</strong>\n<br/>Using the api you can start uploading the users content even before they post the content which will speed up your users experience.</p>",
+      "methods" : [
+        {
+          "MethodName" : "Add Media",
+          "Synopsis" : "Methods to add media.",
+          "HTTPMethod" : "POST",
+          "URI" : "/add/media",
+          "RequiresOAuth" : "Y",
+          "parameters" : [
+            {
+              "Name" : "encode",
+              "Required" : "N",
+              "Default" : "",
+              "Type" : "enumerated",
+              "Description" : "The encoding profile of the data.",
+              "enumerated" : [
+                "",
+                "base64"
+              ]
+            },
+            {
+              "Name" : "data",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "The data string of the file."
+            },
+            {
+              "Name" : "url",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "URL to a media asset."
+            },
+            {
+              "Name" : "files",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "file",
+              "Description" : "The Media ID from /add/media endpoint"
+            }
+          ]
+        },
+            {
+          "MethodName" : "Get Post",
+          "Synopsis" : "Get a post",
+          "HTTPMethod" : "GET",
+          "URI" : "/post/:postid",
+          "RequiresOAuth" : "Y",
+          "parameters" : [
+            {
+              "Name" : "postid",
+              "Required" : "Y",
+              "Default" : "postid",
+              "Type" : "string",
+              "Description" : "The id of the comment."
+            }
+          ]
+        },
+        {
+          "MethodName" : "Add Post",
+          "Synopsis" : "Methods to add content into the platform.",
+          "HTTPMethod" : "POST",
+          "URI" : "/post",
+          "RequiresOAuth" : "Y",
+          "parameters" : [
+            {
+              "Name" : "title",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "The title of the content"
+            },
+            {
+              "Name" : "text",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "Body of the content"
+            },
+            {
+              "Name" : "usertext",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "The users text added with content"
+            },
+            {
+              "Name" : "media",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "The Media ID from /add/media endpoint"
+            },
+            {
+              "Name" : "data",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "The data string of the file."
+            },
+            {
+              "Name" : "url",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "URL to a media asset."
+            },
+            {
+              "Name" : "files",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "file",
+              "Description" : "The Media ID from /add/media endpoint"
+            },
+            {
+              "Name" : "location",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "This is the Location ID provided from /location endpoint"
+            },
+            {
+              "Name" : "extra",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "array",
+              "Description" : "This is a json array of extra meta data you can enter."
+            },
+            {
+              "Name" : "type",
+              "Required" : "N",
+              "Default" : "follow",
+              "Type" : "enumerated",
+              "Description" : "The type of content",
+              "enumerated" : [
+                "link",
+                "image",
+                "text",
+                "video",
+                "music",
+                "drawing"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName" : "Delete Post",
+          "Synopsis" : "Delete a post",
+          "HTTPMethod" : "DELETE",
+          "URI" : "/post/:postid",
+          "RequiresOAuth" : "Y",
+          "parameters" : [
+            {
+              "Name" : "postid",
+              "Required" : "Y",
+              "Default" : "postid",
+              "Type" : "string",
+              "Description" : "The id of the comment."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "Stream",
+      "description" : "<p>Endpoint for pulling content streams, you can pull many different types of streams including a user stream, a popular stream or a users content.</p>",
+      "methods" : [
+{
+          "MethodName" : "Get Activity",
+          "Synopsis" : "Get your Activity Stream",
+          "HTTPMethod" : "GET",
+          "URI" : "/activity",
+          "RequiresOAuth" : "N",
+          "parameters" : [
+            {
+              "Name" : "limit",
+              "Required" : "N",
+              "Default" : "10",
+              "Type" : "string",
+              "Description" : "The number of comments to return"
+            },
+            {
+              "Name" : "page",
+              "Required" : "N",
+              "Default" : "1",
+              "Type" : "string",
+              "Description" : "The page of the comments"
+            },
+            {
+              "Name" : "startid",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "The id where you want to anchor paging"
+            },
+            {
+              "Name" : "direction",
+              "Required" : "N",
+              "Default" : "None",
+              "Type" : "enumerated",
+              "Description" : "Do you want data before or after the startid?",
+              "enumerated" : [
+                "None",
+                "before",
+                "after"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName" : "Get Stream",
+          "Synopsis" : "Get your stream",
+          "HTTPMethod" : "GET",
+          "URI" : "/stream",
+          "RequiresOAuth" : "N",
+          "parameters" : [
+            {
+              "Name" : "limit",
+              "Required" : "N",
+              "Default" : "10",
+              "Type" : "string",
+              "Description" : "The number of comments to return"
+            },
+            {
+              "Name" : "page",
+              "Required" : "N",
+              "Default" : "1",
+              "Type" : "string",
+              "Description" : "The page of the comments"
+            },
+            {
+              "Name" : "maxid",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "The max id of displayed"
+            },
+            {
+              "Name" : "paging",
+              "Required" : "N",
+              "Default" : "None",
+              "Type" : "enumerated",
+              "Description" : "The type of content",
+              "enumerated" : [
+                "None",
+                "next",
+                "prev"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName" : "Get Popular",
+          "Synopsis" : "Get the popular posts",
+          "HTTPMethod" : "GET",
+          "URI" : "/stream/popular",
+          "RequiresOAuth" : "N",
+          "parameters" : [
+            {
+              "Name" : "limit",
+              "Required" : "N",
+              "Default" : "10",
+              "Type" : "string",
+              "Description" : "The number of comments to return"
+            },
+            {
+              "Name" : "page",
+              "Required" : "N",
+              "Default" : "1",
+              "Type" : "string",
+              "Description" : "The page of the comments"
+            },
+            {
+              "Name" : "maxid",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "The max id of displayed"
+            },
+            {
+              "Name" : "paging",
+              "Required" : "N",
+              "Default" : "None",
+              "Type" : "enumerated",
+              "Description" : "The type of content",
+              "enumerated" : [
+                "None",
+                "next",
+                "prev"
+              ]
+            }
+
+          ]
+        },
+        {
+          "MethodName" : "Get User Stream",
+          "Synopsis" : "Get users posts",
+          "HTTPMethod" : "GET",
+          "URI" : "/stream/:userid",
+          "RequiresOAuth" : "N",
+          "parameters" : [
+            {
+              "Name" : "userid",
+              "Required" : "Y",
+              "Default" : "50ceaf5d7a6509b75b050249",
+              "Type" : "ObjectId",
+              "Description" : "The user id"
+            },
+            {
+              "Name" : "limit",
+              "Required" : "N",
+              "Default" : "10",
+              "Type" : "string",
+              "Description" : "The number of comments to return"
+            },
+            {
+              "Name" : "page",
+              "Required" : "N",
+              "Default" : "1",
+              "Type" : "string",
+              "Description" : "The page of the comments"
+            },
+            {
+              "Name" : "maxid",
+              "Required" : "N",
+              "Default" : null,
+              "Type" : "string",
+              "Description" : "The max id of displayed"
+            },
+            {
+              "Name" : "paging",
+              "Required" : "N",
+              "Default" : "None",
+              "Type" : "enumerated",
+              "Description" : "The type of content",
+              "enumerated" : [
+                "None",
+                "next",
+                "prev"
+              ]
+            }
+
+          ]
+        }
+
+      ]
+    }
+  ]
+}
