@@ -1,62 +1,61 @@
-"use strict"; // jshint ;_;
 /* Krowd.io API Explorer (http://www.krowd.io/)
  * ======================================================= */
-$(function() {
+$(function () {
   var html = '<section>\
-      <a class="sectionanchor"></a>\
-            <h3></h3>\
-            <p class="lead"></p>\
-            <div class="buttons"><a href="#" class="btn btn-mini closeall btn-info" style="display:none"><strong>Collapse All</strong></a><a href="#" class="btn btn-info btn-mini showall" ><strong>Show All</strong></a></div>\
-            <div class="methods">\
-              <div class="method">\
-                   <div class="accordion-group">\
-                     <div class="accordion-heading">\
-                       <a class="accordion-toggle" data-toggle="collapse">\
-                         <div class="row">\
-                          <div class="span1-fluid"><span class="label label-success verb"></span></div>\
-                          <div class="span3-fluid title"></div>\
-                          <div class="span3-fluid path"></div>\
-                          <div class="span5-fluid visible-desktop pull-right text-info"></div>\
-                         </div>\
-                       </a>\
-                     </div>\
-                     <div class="accordion-body collapse out">\
-                       <div class="accordion-inner">\
-                        <table class="table table-striped  table-condensed">\
-                          <thead>\
-                            <tr>\
-                              <th>Parameter</th>\
-                              <th>Value</th>\
-                              <th>Type</th>\
-                              <th class="hidden-phone hidden-tablet">Description</th>\
-                            </tr>\
-                          </thead>\
-                          <tbody class="parameters">\
-                            <tr class="parameter">\
-                              <td class="name"></td>\
-                              <td class="value"><span class="text-info hidden-desktop"></span></td>\
-                              <td class="type"></td>\
-                              <td class="hidden-phone hidden-tablet text-info"></td>\
-                            </tr>\
-                          </tbody>\
-                        </table>\
+    <a class="sectionanchor"></a>\
+          <h3></h3>\
+          <p class="lead"></p>\
+          <div class="buttons"><a href="#" class="btn btn-mini closeall btn-info" style="display:none"><strong>Collapse All</strong></a><a href="#" class="btn btn-info btn-mini showall" ><strong>Show All</strong></a></div>\
+          <div class="methods">\
+            <div class="method">\
+                 <div class="accordion-group">\
+                   <div class="accordion-heading">\
+                     <a class="accordion-toggle" data-toggle="collapse">\
+                       <div class="row">\
+                        <div class="span1-fluid"><span class="label label-success verb"></span></div>\
+                        <div class="span3-fluid title"></div>\
+                        <div class="span3-fluid path"></div>\
+                        <div class="span5-fluid visible-desktop pull-right text-info"></div>\
                        </div>\
+                     </a>\
+                   </div>\
+                   <div class="accordion-body collapse out">\
+                     <div class="accordion-inner">\
+                      <table class="table table-striped  table-condensed">\
+                        <thead>\
+                          <tr>\
+                            <th>Parameter</th>\
+                            <th>Value</th>\
+                            <th>Type</th>\
+                            <th class="hidden-phone hidden-tablet">Description</th>\
+                          </tr>\
+                        </thead>\
+                        <tbody class="parameters">\
+                          <tr class="parameter">\
+                            <td class="name"></td>\
+                            <td class="value"><span class="text-info hidden-desktop"></span></td>\
+                            <td class="type"></td>\
+                            <td class="hidden-phone hidden-tablet text-info"></td>\
+                          </tr>\
+                        </tbody>\
+                      </table>\
                      </div>\
                    </div>\
-              </div>\
+                 </div>\
             </div>\
-        </section>';
+          </div>\
+      </section>';
+
   $.fn.outerHTML = function() {
     // IE, Chrome & Safari will comply with the non-standard outerHTML, all others (FF) will have a fall-back for cloning
-  return (!this.length) ? this : (this[0].outerHTML || (
-
-  function(el) {
-    var div = document.createElement('div');
-    div.appendChild(el.cloneNode(true));
-    var contents = div.innerHTML;
-    div = null;
-    return contents;
-    })(this[0]));
+    return (!this.length) ? this : (this[0].outerHTML || (
+      function(el) {
+        var div = document.createElement('div');
+        div.appendChild(el.cloneNode(true));
+        var contents = div.innerHTML;
+        div = null;
+        return contents;
+      })(this[0]));
   }
   var sections = [];
   var methods = [];
