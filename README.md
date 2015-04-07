@@ -1,4 +1,4 @@
-## Kaddy - Open source API Explorer by [geekrowd](http://www.geekrowd.com) 
+## Kaddy - Open source API Explorer by [krowdify](http://www.krowdify.com) 
 
 
 Krowd Kaddy is an experimental JSON based API explorer. It is currently pretty alpha but
@@ -30,8 +30,8 @@ we have in place. If you don't require authentication simply set the `headers = 
 
 Again this is alpha but works quite well if you understand Javascript this should be no problem for you to handle.  
 
-[http://www.geekrowd.com](http://www.geekrowd.com)
+[http://www.krowdify.com](http://www.krowdify.com)
 
 [Krowd.io](http://krowd.io) is a social "Platform as a Service" (PaaS) that delivers the backend for social applications on any device or platform. 
 
-Copyright 2012-2013 geekrowd
+Copyright 2012-2015 Krowdify
